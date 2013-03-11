@@ -5,6 +5,14 @@
 #include <QNetworkConfiguration>
 #include <QNetworkSession>
 #include <QList>
+#include <QProcessEnvironment>
+
+QString getUsername(){
+    QString user = QProcessEnvironment::systemEnvironment().value("USER");
+    if(user.isEmpty())
+        user = QProcessEnvironment::systemEnvironment().value("USERNAME");
+    return user;
+}
 
 
 StatusWidget::StatusWidget(QWidget *parent) :
@@ -24,6 +32,7 @@ StatusWidget::StatusWidget(QWidget *parent) :
         ui->IPlistWidget->addItem(it->ip().toString());
     }
     ui->HostNamelineEdit->setText(QHostInfo::localHostName());
+    ui->NickNamelineEdit->setText(getUsername());
 }
 
 StatusWidget::~StatusWidget()
