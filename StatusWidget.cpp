@@ -23,6 +23,7 @@ StatusWidget::StatusWidget(QWidget *parent) :
     {
         ui->IPlistWidget->addItem(it->ip().toString());
     }
+    ui->HostNamelineEdit->setText(QHostInfo::localHostName());
 }
 
 StatusWidget::~StatusWidget()
