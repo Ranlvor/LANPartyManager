@@ -2,11 +2,12 @@
 #include "ui_MainWindow.h"
 #include <QApplication>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(Network *n, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->statusWidget->setNetwork(n);
 }
 
 MainWindow::~MainWindow()

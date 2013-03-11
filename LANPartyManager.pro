@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    StatusWidget.cpp
+    StatusWidget.cpp \
+    Network.cpp
 
 HEADERS  += MainWindow.hpp \
-    StatusWidget.h
+    StatusWidget.h \
+    Network.h
 
 FORMS    += MainWindow.ui \
     StatusWidget.ui

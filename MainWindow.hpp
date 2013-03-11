@@ -2,7 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-
+#include "Network.h"
 namespace Ui {
 class MainWindow;
 }
@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(Network * n, QWidget *parent = 0);
     ~MainWindow();
     
 private slots:

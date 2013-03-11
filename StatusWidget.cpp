@@ -1,10 +1,5 @@
 #include "StatusWidget.h"
 #include "ui_StatusWidget.h"
-#include <QHostInfo>
-#include <QNetworkConfigurationManager>
-#include <QNetworkConfiguration>
-#include <QNetworkSession>
-#include <QList>
 #include <QProcessEnvironment>
 
 QString getUsername(){
@@ -17,25 +12,32 @@ QString getUsername(){
 
 StatusWidget::StatusWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::StatusWidget)
+    ui(new Ui::StatusWidget), n(0)
 {
     ui->setupUi(this);
-
-    QNetworkConfigurationManager mgr;
-    QNetworkConfiguration nconfig = mgr.defaultConfiguration();
-    QNetworkSession session ( nconfig );
-    QNetworkInterface ninter = session.interface();
-
-    QList<QNetworkAddressEntry> laddr = ninter.addressEntries();
-    for ( QList<QNetworkAddressEntry> ::const_iterator it = laddr.begin(); it != laddr.end(); ++it )
-    {
-        ui->IPlistWidget->addItem(it->ip().toString());
-    }
-    ui->HostNamelineEdit->setText(QHostInfo::localHostName());
-    ui->NickNamelineEdit->setText(getUsername());
+    redraw();
 }
 
 StatusWidget::~StatusWidget()
 {
     delete ui;
+}
+
+void StatusWidget::redraw(){
+    if(n != 0) {
+        QStringList ips = n->getIPAdresses();
+        foreach (QString ip, ips) {
+            ui->IPlistWidget->addItem(ip);
+        }
+
+        ui->HostNamelineEdit->setText(n->getHostname());
+    }
+
+
+    ui->NickNamelineEdit->setText(getUsername());
+}
+
+void StatusWidget::setNetwork(Network * n){
+    this->n = n;
+    redraw();
 }
